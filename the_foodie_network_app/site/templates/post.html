@@ -1,0 +1,14 @@
+<div class = "panel panel-default">
+  <div class="panel-body">
+    <img class="img-circle pull-left gap-right" src="{{ post.author.avatar(40) }}">
+    <h3 class="panel-title"><a href = "{{ url_for('profile', user_id = post.author.uid) }}">&nbsp;&nbsp;{{post.author.firstname}} {{post.author.lastname}} </a></h3>
+    <h5>&nbsp;&nbsp;{{ moment(post.posted_at).fromNow() }}</h5>
+    {{post.content}}
+    <hr>
+    <div class="btn-group" role="group" aria-label="...">
+      <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> Like</button>
+      <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span> Dislike</button>
+      <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Comment</button>
+    </div>
+  </div>
+</div>

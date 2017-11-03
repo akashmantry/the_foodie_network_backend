@@ -1,0 +1,27 @@
+{% extends 'header.html' %}
+{% block body %}
+
+<div>
+      <div class="jumbotron">
+        <img class="img-circle pull-left gap-right" src="{{ current_user.avatar(128) }}">
+        <h1>&nbsp;&nbsp;{{user_from_table.firstname}}&nbsp;{{user_from_table.lastname}}</h1>
+        <h3>&nbsp;&nbsp;Posts <span class="badge">{{user_from_table.posts.count()}}</span>&nbsp;&nbsp;Followers <span class="badge">42</span>&nbsp;&nbsp;Following <span class="badge">42</span></h3>
+      </div>
+
+      {% if current_user.is_following(user_from_table) == False %}
+        <button type="button" class="btn btn-success pull-right" id="addFriend" onclick=clickAddFriend({{user_from_table.uid}})>
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add friend
+        </button>
+      {% else %}
+        <button type="button" class="btn btn-success pull-right" id="removeFriend" onclick=clickRemoveFriend({{user_from_table.uid}})>Unfriend
+        </button>
+      {% endif %}
+        <br>
+        <br>
+
+      {% for post in posts_by_user %}
+        {{ post.render_post() | safe}}
+      {% endfor%}
+
+</div>
+{% endblock %}

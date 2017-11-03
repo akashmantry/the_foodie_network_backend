@@ -1,0 +1,21 @@
+{% extends 'header.html' %}
+{% block body %}
+
+<div>
+  <form "form-horizontal" method="POST" action="{{ url_for('home') }}">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      <label for="post">What's your status?</label>
+      <textarea class="form-control" rows="3" id = "post" name = "post"></textarea>
+    </div>
+    <button type="submit" class="btn btn-default">Post</button>
+  </form>
+
+  <br>
+
+  {% for post in posts%}
+    {{ post.render_post() | safe}}
+  {% endfor%}
+</div>
+
+{% endblock %}

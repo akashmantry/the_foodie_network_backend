@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Python Programming Tutorials</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	{{ moment.include_jquery() }}
+    {{ moment.include_moment() }}
+</head>
+
+
+<body>
+
+	<nav class="navbar navbar-inverse navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">FOLFOX</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+          	{% if current_user.is_authenticated %}
+            	<li><a href="{{ url_for('home') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            	<li><a href="{{ url_for('profile', user_id = current_user.uid) }}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            	<li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
+            	<li><a href="#"><span class="glyphicon glyphicon-wrench"></span> Settings</a></li>
+            	<li><a href="#"> <span class="glyphicon glyphicon-heart"></span> Support</a></li>
+            	<li><a href="{{ url_for('signout') }}"><span class="glyphicon glyphicon-log-out"></span> Sign out</a></li>
+            {% else %}
+            	<li><a href="{{ url_for('signin') }}"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
+            	<li><a href="{{ url_for('signup') }}"><span class="glyphicon glyphicon-pencil"></span> Sign up</a></	li>
+            {% endif %}
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+
+
+
+	<div class="container-fluid" >
+		<div class="row">
+			{% if current_user.is_authenticated %}
+        	<div class="col-sm-3 col-md-2 sidebar">
+          		<ul class="nav nav-sidebar">
+            		<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            		<li><a href="#">Reports</a></li>
+            		<li><a href="#">Analytics</a></li>
+            		<li><a href="#">Export</a></li>
+          		</ul>
+          		<ul class="nav nav-sidebar">
+            		<li><a href="">Nav item</a></li>
+            		<li><a href="">Nav item again</a></li>
+            		<li><a href="">One more nav</a></li>
+            		<li><a href="">Another nav item</a></li>
+            		<li><a href="">More navigation</a></li>
+          		</ul>
+          		<ul class="nav nav-sidebar">
+            		<li><a href="">Nav item again</a></li>
+            		<li><a href="">One more nav</a></li>
+            		<li><a href="">Another nav item</a></li>
+          		</ul>
+        	</div>
+        	{% endif %}
+        	<div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-0 main">
+				{% with messages = get_flashed_messages() %}
+	  				{% if messages %}
+	    				{% for message in messages %}
+		  					<div class="alert alert-warning alert-dismissible" role="alert">
+		  						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+								{{message}}
+		  					</div>
+						{% endfor %}
+	  				{% endif %}
+				{% endwith %}
+	
+				{% block body %}{% endblock %}
+			</div>
+		</div>
+	</div>
+
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/newer.js') }}"></script>
+
+</body>
+
+</html>
